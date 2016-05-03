@@ -113,7 +113,8 @@ void setup()   {
   inputString.reserve(400);
   pinMode(CH1,OUTPUT);
   digitalWrite(CH1,LOW);
-  
+  digitalWrite(2,HIGH);
+
   // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3D (for the 128x64)
   // init done

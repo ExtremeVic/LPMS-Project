@@ -61,6 +61,7 @@ void dmpDataReady() {
 // ================================================================
 
 void setup() {
+      digitalWrite(2,HIGH);
     // join I2C bus (I2Cdev library doesn't do this automatically)
     Wire.begin();
     Serial.begin(9600);
