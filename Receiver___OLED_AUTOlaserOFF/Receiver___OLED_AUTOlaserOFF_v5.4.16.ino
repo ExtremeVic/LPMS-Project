@@ -1,7 +1,3 @@
-#include <Adafruit_GFX.h>
-#include <gfxfont.h>
-
-
 
 
 /*********************************************************************
@@ -22,10 +18,10 @@ BSD license, check license.txt for more information
 All text above, and the splash screen must be included in any redistribution
 *********************************************************************/
 
-//#include <SPI.h>
+
 #define CH1 8
 #include <Wire.h>
-#include <Adafruit_GFX.h>
+//#include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
 #define OLED_RESET 4
@@ -34,7 +30,7 @@ Adafruit_SSD1306 display(OLED_RESET);
 
 #define LOGO16_GLCD_HEIGHT 64
 #define LOGO16_GLCD_WIDTH  128
-byte incomingByte;
+//byte incomingByte;
 String inputString = "";         // a string to hold incoming data
 boolean stringComplete = false;  // whether the string is complete
 int hold = 0;
@@ -109,12 +105,11 @@ const unsigned char PROGMEM logo16_glcd_bmp[] = {
 };
 
 void setup()   {                
-  Serial.begin(9600);
-  inputString.reserve(400);
+  Serial.begin(4800);
+  inputString.reserve(100);
   pinMode(CH1,OUTPUT);
   digitalWrite(CH1,LOW);
-  digitalWrite(2,HIGH);
-
+  
   // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3D (for the 128x64)
   // init done
@@ -124,7 +119,7 @@ void setup()   {
   display.clearDisplay();
   display.drawBitmap(0, 0,  logo16_glcd_bmp, 128, 64, 1);
   display.display();
-  delay(1000); 
+  delay(3000); 
   
   display.clearDisplay();
   display.setTextColor(WHITE);
@@ -160,10 +155,11 @@ void loop() {
     display.println("");
     display.println("Voltage must be above");
     display.println("4.7 VDC to function!");
-     display.println("");
+    display.println("");
     display.print("Current voltage: ");
     display.println(readVcc()*0.001);
     display.display();
+    delay(10);
       }
       else if (hold >= 650 && hold < 1000) {
         display.clearDisplay();
@@ -203,20 +199,20 @@ void loop() {
       display.setTextSize(1);
       display.println("   Eighth Day Sound");
       display.println("");
-      if (readVcc()*0.001 < 4.75){
+      /*if (readVcc()*0.001 < 4.75){
         counter = 0;
         display.setTextSize(2);
-        display.println(" Low Batt!");
+        display.println("Low Voltage");
         display.setTextSize(1);
         display.setTextColor(WHITE);
-        display.println("NO LASER-CLINO WORKS");
+        display.println("Replace Batteries or swit");
         display.println("");
         display.setTextSize(2);
         display.print("Tilt "); 
         display.println(inputString.toInt()*0.1);
         display.setTextSize(1);
       }
-      else if (readVcc()*0.001 >= 4.75){
+      else if (readVcc()*0.001 >= 4.75){*/
         display.println("");
         display.setTextSize(2);
         display.setTextColor(WHITE);
@@ -224,7 +220,7 @@ void loop() {
         display.println(inputString.toInt()*0.1);
         display.setTextSize(1);
         
-      }
+      //} 
       if (counter > 100000) {
         digitalWrite(CH1,HIGH);
         display.println("");
@@ -245,6 +241,7 @@ void loop() {
       // clear the string:
         inputString = "";
         stringComplete = false;
+        //Serial.flush();
   }
    hold++;
    counter++;

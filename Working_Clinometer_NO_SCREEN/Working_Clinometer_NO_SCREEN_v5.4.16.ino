@@ -61,10 +61,9 @@ void dmpDataReady() {
 // ================================================================
 
 void setup() {
-      digitalWrite(2,HIGH);
     // join I2C bus (I2Cdev library doesn't do this automatically)
     Wire.begin();
-    Serial.begin(9600);
+    Serial.begin(4800);
     // initialize device
     Serial.println(F("Initializing I2C devices..."));
     mpu.initialize();
